@@ -1,0 +1,44 @@
+/* This is a css file for index.html */
+
+
+/* Top left sprite */
+@media screen
+and (min-device-width: 1201px) {
+	.k8em0 {
+		width: 600px;
+		height: 600px;
+		background: 0 0px;
+	}
+}
+
+/* Top right sprite */
+@media screen 
+and (min-device-width: 901px)
+and (max-device-width: 1200px) {
+	.k8em0 {
+		width: 600px;
+		height: 600px;
+		background: 600 0px;
+	}
+}
+
+/* Bottom left sprite */
+@media screen
+and (min-device-width: 601px)
+and (max-device-width: 900px) {
+	.k8em0 {
+		width: 600px;
+		height: 600px;
+		background: 0 -600px;
+	}
+}
+
+/* Bottom right sprite */
+@media screen
+and (max-device-width: 600px){
+	.k8em0 {
+		width: 600px;
+		height: 600px;
+		background: 600 -600px;
+	}
+}
