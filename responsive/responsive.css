@@ -18,7 +18,7 @@ and (max-width: 1200px) {
 	.k8em0 {
 		width: 600px;
 		height: 600px;
-		background:url(k8em0.jpg) 599px 0px;
+		background:url(k8em0.jpg) 600px 0px;
 	}
 }
 
@@ -39,6 +39,6 @@ and (max-width: 600px){
 	.k8em0 {
 		width: 600px;
 		height: 600px;
-		background:url(k8em0.jpg) 599px -600px;
+		background:url(k8em0.jpg) 600px -600px;
 	}
 }
