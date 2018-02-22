@@ -16,8 +16,17 @@
 <script>
 	var video = document.getElementById("rickroll");
 	var lyrics = document.getElementById("lyrics");
-
-	if (video.currentTime > 18 && video.currentTime <= 22)
+	video.addEventListener("timeupdate",
+	function() {
+	if (video.currentTime >= 0 && video.currentTime <= 16)
+		lyrics.innerHTML = "Please Enjoy :) :) :)";
+	else if (video.currentTime > 16 && video.currentTime <= 16.66)
+		lyrics.innerHTML = "3";
+	else if (video.currentTime > 16.66 && video.currentTime <= 17.33)
+		lyrics.innerHTML = "2";	
+	else if (video.currentTime > 17.33 && video.currentTime <= 18)
+		lyrics.innerHTML = "1";
+	else if (video.currentTime > 18 && video.currentTime <= 22)
 		lyrics.innerHTML = "We're no strangers to love";
 	else if (video.currentTime > 22 && video.currentTime <= 27)
 		lyrics.innerHTML = "You know the rules and so do I";
@@ -26,11 +35,11 @@
 	else if (video.currentTime > 30 && video.currentTime <= 35)
 		lyrics.innerHTML = "You wouldn't get this from any other guy";
 	else if (video.currentTime > 35 && video.currentTime <= 40)
-		lyrics.innerHTML = "I just wanna tell you how I'm feeling";
+		lyrics.innerHTML = "I just wanna tell you how I'm feeling :D :D :D";
 	else if (video.currentTime > 40 && video.currentTime <= 43)
-		lyrics.innerHTML = "Gotta make you understand";
+		lyrics.innerHTML = "Gotta make you understand (GET READY!!!)";
 	else if (video.currentTime > 43 && video.currentTime <= 45)
-		lyrics.innerHTML = "Never gonna give you up";
+		lyrics.innerHTML = "Never gonna give you up~~~ &#9835 &#9835 &#9835";
 	else if (video.currentTime > 45 && video.currentTime <= 47)
 		lyrics.innerHTML = "Never gonna let you down";
 	else if (video.currentTime > 47 && video.currentTime <= 51)
@@ -54,11 +63,11 @@
 	else if(video.currentTime > 73 && video.currentTime <= 77)
 		lyrics.innerHTML = "We know the game and we're gonna play it";	
 	else if(video.currentTime > 77 && video.currentTime <= 82)
-		lyrics.innerHTML = "And if you ask me how I'm feeling";	
+		lyrics.innerHTML = "And if you ask me how I'm feeling :D :D :D";	
 	else if(video.currentTime > 82 && video.currentTime <= 85)
 		lyrics.innerHTML = "Don't tell me you're too blind to see";	
 	else if(video.currentTime > 85 && video.currentTime <= 88)
-		lyrics.innerHTML = "Never gonna give you up";	
+		lyrics.innerHTML = "Never gonna give you up~~~ &#9835 &#9835 &#9835";	
 	else if(video.currentTime > 88 && video.currentTime <= 90)
 		lyrics.innerHTML = "Never gonna let you down";	
 	else if(video.currentTime > 90 && video.currentTime <= 94)
@@ -70,7 +79,7 @@
 	else if(video.currentTime > 98 && video.currentTime <= 102)
 		lyrics.innerHTML = "Never gonna tell a lie and hurt you";	
 	else if(video.currentTime > 102 && video.currentTime <= 104)
-		lyrics.innerHTML = "Never gonna give you up";	
+		lyrics.innerHTML = "Never gonna give you up~~~ &#9835 &#9835 &#9835";	
 	else if(video.currentTime > 104 && video.currentTime <= 106)
 		lyrics.innerHTML = "Never gonna let you down";	
 	else if(video.currentTime > 106 && video.currentTime <= 111)
@@ -82,15 +91,15 @@
 	else if(video.currentTime > 114 && video.currentTime <= 119)
 		lyrics.innerHTML = "Never gonna tell a lie and hurt you";	
 	else if(video.currentTime > 119 && video.currentTime <= 128)
-		lyrics.innerHTML = "(Ooh, give you up)";	
+		lyrics.innerHTML = "(Ooh, give you up~~~ &#9835 &#9835 &#9835)";	
 	else if(video.currentTime > 128 && video.currentTime <= 130)
 		lyrics.innerHTML = "Never gonna give, never gonna give";
 	else if(video.currentTime > 130 && video.currentTime <= 132)
-		lyrics.innerHTML = "(Give you up)";	
+		lyrics.innerHTML = "(Give you up~~~ &#9835 &#9835 &#9835)";	
 	else if(video.currentTime > 132 && video.currentTime <= 134)
 		lyrics.innerHTML = "Never gonna give, never gonna give";
 	else if(video.currentTime > 134 && video.currentTime <= 136)
-		lyrics.innerHTML = "(Give you up)";	
+		lyrics.innerHTML = "(Give you up~~~ &#9835 &#9835 &#9835)";	
 	else if(video.currentTime > 136 && video.currentTime <= 141)
 		lyrics.innerHTML = "We've known each other for so long";	
 	else if(video.currentTime > 141 && video.currentTime <= 143)
@@ -102,11 +111,11 @@
 	else if(video.currentTime > 149 && video.currentTime <= 153)
 		lyrics.innerHTML = "We know the game and we're gonna play it";	
 	else if(video.currentTime > 153 && video.currentTime <= 158)
-		lyrics.innerHTML = "I just wanna tell you how I'm feeling";	
+		lyrics.innerHTML = "I just wanna tell you how I'm feeling :D :D :D";	
 	else if(video.currentTime > 158 && video.currentTime <= 161)
-		lyrics.innerHTML = "Gotta make you understand";	
+		lyrics.innerHTML = "Gotta make you understand (GET READY!!!)";	
 	else if(video.currentTime > 161 && video.currentTime <= 164)
-		lyrics.innerHTML = "Never gonna give you up";	
+		lyrics.innerHTML = "Never gonna give you up~~~ &#9835 &#9835 &#9835";	
 	else if(video.currentTime > 164 && video.currentTime <= 166)
 		lyrics.innerHTML = "Never gonna let you down";	
 	else if(video.currentTime > 166 && video.currentTime <= 170)
@@ -118,7 +127,7 @@
 	else if(video.currentTime > 174 && video.currentTime <= 178)
 		lyrics.innerHTML = "Never gonna tell a lie and hurt you";	
 	else if(video.currentTime > 178 && video.currentTime <= 181)
-		lyrics.innerHTML = "Never gonna give you up";	
+		lyrics.innerHTML = "Never gonna give you up~~~ &#9835 &#9835 &#9835";	
 	else if(video.currentTime > 181 && video.currentTime <= 183)
 		lyrics.innerHTML = "Never gonna let you down";	
 	else if(video.currentTime > 183 && video.currentTime <= 187)
@@ -130,7 +139,7 @@
 	else if(video.currentTime > 191 && video.currentTime <= 195)
 		lyrics.innerHTML = "Never gonna tell a lie and hurt you";	
 	else if(video.currentTime > 195 && video.currentTime <= 198)
-		lyrics.innerHTML = "Never gonna give you up";	
+		lyrics.innerHTML = "Never gonna give you up~~~ &#9835 &#9835 &#9835";	
 	else if(video.currentTime > 198 && video.currentTime <= 200)
 		lyrics.innerHTML = "Never gonna let you down";	
 	else if(video.currentTime > 200 && video.currentTime <= 204)
@@ -141,6 +150,7 @@
 		lyrics.innerHTML = "Never gonna say goodbye";	
 	else if(video.currentTime > 208 && video.currentTime <= 212)
 		lyrics.innerHTML = "Never gonna tell a lie and hurt you";
+	});
 </script>
 
 </body>
