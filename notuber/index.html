@@ -49,7 +49,7 @@
 
 			marker = new google.maps.Marker({
 				position: myLocation,
-				title: "Username: " + myUser + "\nClosest Distance: " + closestDistance,
+				title: "Username: " + myUser + ", Closest Distance: " + closestDistance + " miles",
 				icon: 'my_pin.png'
 			});
 			marker.setMap(map);
@@ -72,7 +72,7 @@
 
 			marker = new google.maps.Marker({
 				position: markerLocation,
-				title: "Username: " + username + "\nDistance: " + distance,
+				title: "Username: " + username + ", Distance: " + distance + " miles",
 				icon: icon
 			});
 			marker.setMap(map);
@@ -110,8 +110,6 @@
 			        	}
 			        }
 			        renderMap();
-			        
-			        alert(xhr.responseText);
 			    }
 			}
 			xhr.send(sendInfo);
