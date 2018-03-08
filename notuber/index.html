@@ -7,21 +7,21 @@
  	<link rel="stylesheet" href="style.css"/>
  	<meta name="viewport" content="initial-scale=1.0" />
  	<meta charset="utf-8" />
-	<script src="https://maps.google.com/maps/api/js?key=AIzaSyAKi5dyXKXKN4bNpb3LnoZ-OifrrVYHLLA"></script>
+
+	<script src="https://maps.google.com/maps/api/js?key=AIzaSyAKi5dyXKXKN4bNpb3LnoZ-OifrrVYHLLA&libraries=geometry"></script>
 
 	<script>
 		var marker;
 		var infowindow = new google.maps.InfoWindow();
-		var myLat = 42.3601;
-		var myLng = -71.0589;
+		var myLat = 0;
+		var myLng = 0;
 		var myUser = "t0u3gGPnp6";
-
 		var options = {
 			center: {lat: myLat, lng: myLng},
-			zoom: 8
+			zoom: 16
 		};
-
-		var myInfo = new google.maps.LatLng(myLat, myLng);
+		var myLocation;
+		var closestDistance = 9999;
 
 		function initMap() {
 			map = new google.maps.Map(document.getElementById('map'), options);
@@ -33,7 +33,9 @@
 				navigator.geolocation.getCurrentPosition(function(position) {
 					myLat = position.coords.latitude;
 					myLng = position.coords.longitude;
-					renderMap();
+					myLocation = new google.maps.LatLng(myLat, myLng);
+					
+					sendHTTP();
 				});
 			}
 
@@ -43,28 +45,12 @@
 
 
 		function renderMap() {
-			myLocation = new google.maps.LatLng(myLat, myLng);
 			map.panTo(myLocation);
 
 			marker = new google.maps.Marker({
 				position: myLocation,
-				title: "Username: " + myUser
-			});
-			marker.setMap(map);
-		
-			// Open info window on click of marker
-			google.maps.event.addListener(marker, 'click', function() {
-				infowindow.setContent(marker.title);
-				infowindow.open(map, marker);
-			});
-		}
-		function addMarker(prop, i, icon) {
-			var username = prop[i].username;
-			markerLocation = new google.maps.LatLng(prop[i].lat, prop[i].lng);
-			marker = new google.maps.Marker({
-				position: markerLocation,
-				title: "Username: " + username,
-				icon: icon
+				title: "Username: " + myUser + "\nClosest Distance: " + closestDistance,
+				icon: 'my_pin.png'
 			});
 			marker.setMap(map);
 		
@@ -74,36 +60,62 @@
 				infowindow.open(map, this);
 			});
 		}
+		function addMarker(prop, i, icon) {
+			var username = prop[i].username;
+			var markerLocation = new google.maps.LatLng(prop[i].lat, prop[i].lng);
 
-		var jsonInfo;
-		var xhr = new XMLHttpRequest();
-		var url = "https://jordan-marsh.herokuapp.com/rides";
-		var sendInfo = "username=t0u3gGPnp6&lat=" + myLat + "&lng=" + myLng;
-		xhr.open("POST", url, true);
+			var distance = 0.000621371 * google.maps.geometry.spherical.computeDistanceBetween(myLocation, markerLocation);
 
-		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			if (distance < closestDistance) {
+				closestDistance = distance;
+			}
 
-		xhr.onreadystatechange = function() {
-		    if(xhr.readyState == 4 && xhr.status == 200) {
-		    	var myProp;
-		        jsonInfo = JSON.parse(xhr.responseText);
-		        if ('passengers' in jsonInfo) {
-		        	myProp = jsonInfo['passengers'];
-		        	for (var i = 0; i < myProp.length; i++) {
-		        	addMarker(myProp, i, 'passenger.png');
-		        	}
-		        }
-		        else if ('drivers' in jsonInfo) {
-		        	myProp = jsonInfo['drivers'];
-		        	for (var i = 0; i < myProp.length; i++) {
-		        		addMarker(myProp, i, 'car.png');
-		        	}
-		        }
-		        
-		        alert(xhr.responseText);
-		    }
+			marker = new google.maps.Marker({
+				position: markerLocation,
+				title: "Username: " + username + "\nDistance: " + distance,
+				icon: icon
+			});
+			marker.setMap(map);
+
+			google.maps.event.addListener(marker, 'click', function() {
+				infowindow.setContent(this.title);
+				infowindow.open(map, this);
+			});
 		}
-		xhr.send(sendInfo);
+
+		function sendHTTP() {
+			var jsonInfo;
+			var xhr = new XMLHttpRequest();
+			var url = "https://jordan-marsh.herokuapp.com/rides";
+			var sendInfo = "username=t0u3gGPnp6&lat=" + myLat + "&lng=" + myLng;
+			xhr.open("POST", url, true);
+
+			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+			xhr.onreadystatechange = function() {
+			    if(xhr.readyState == 4 && xhr.status == 200) {
+			    	var myProp;
+			        jsonInfo = JSON.parse(xhr.responseText);
+			        myLocation = new google.maps.LatLng(myLat, myLng);
+			        if ('passengers' in jsonInfo) {
+			        	myProp = jsonInfo['passengers'];
+			        	for (var i = 0; i < myProp.length; i++) {
+			        	addMarker(myProp, i, 'passenger.png');
+			        	}
+			        }
+			        else if ('drivers' in jsonInfo) {
+			        	myProp = jsonInfo['drivers'];
+			        	for (var i = 0; i < myProp.length; i++) {
+			        		addMarker(myProp, i, 'car.png');
+			        	}
+			        }
+			        renderMap();
+			        
+			        alert(xhr.responseText);
+			    }
+			}
+			xhr.send(sendInfo);
+		}
 
 	</script>
 </head>
