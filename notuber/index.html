@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+ 	<title>notuber</title>
+ 	<link rel="stylesheet" href="style.css"/>
+ 	<meta name="viewport" content="initial-scale=1.0" />
+ 	<meta charset="utf-8" />
+	<script src="https://maps.google.com/maps/api/js?key=AIzaSyAKi5dyXKXKN4bNpb3LnoZ-OifrrVYHLLA"></script>
+
+	<script>
+		var marker;
+		var infowindow = new google.maps.InfoWindow();
+		var myLat = 42.3601;
+		var myLng = -71.0589;
+
+		var options = {
+			center: {lat: myLat, lng: myLng},
+			zoom: 8
+		};
+
+		var myInfo = new google.maps.LatLng(myLat, myLng);
+
+		function initMap() {
+			map = new google.maps.Map(document.getElementById('map'), options);
+			getMyLocation();
+		}
+
+		function getMyLocation() {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(function(position) {
+					myLat = position.coords.latitude;
+					myLng = position.coords.longitude;
+					renderMap();
+				});
+			}
+
+			else
+				alert("Geolocation is not supported by your web browser.");
+		}
+
+
+		function renderMap() {
+			myLocation = new google.maps.LatLng(myLat, myLng);
+			map.panTo(myLocation);
+
+			marker = new google.maps.Marker({
+				position: myLocation,
+				title: "Here I Am!"
+			});
+			marker.setMap(map);
+		
+			// Open info window on click of marker
+			google.maps.event.addListener(marker, 'click', function() {
+				infowindow.setContent(marker.title);
+				infowindow.open(map, marker);
+			});
+		}
+
+		user = 't0u3gGPnp6';
+		/*function gotLocation(position) {
+			myLat = position.coords.latitude;
+			myLng = position.coords.longitude;
+			output = document.getElementById("location");
+			output.innerHTML = "<h1>Latitude: " + myLat + "Longitude: " + myLng + "</h1>";
+		}
+		var request = new XMLHttpRequest();
+		var url = "https://jordan-marsh.herokuapp.com/rides";
+		request.open('GET', url, true);
+
+		request.onreadystatechange = function() {
+			if (request.readyState == 4 && request.status == 200) {
+
+			}
+		}
+		*/
+	</script>
+</head>
+
+<body onload="initMap()">
+	<div id="map"></div>
+
+</body>
+</html>
