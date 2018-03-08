@@ -14,6 +14,7 @@
 		var infowindow = new google.maps.InfoWindow();
 		var myLat = 42.3601;
 		var myLng = -71.0589;
+		var myUser = "t0u3gGPnp6";
 
 		var options = {
 			center: {lat: myLat, lng: myLng},
@@ -47,7 +48,22 @@
 
 			marker = new google.maps.Marker({
 				position: myLocation,
-				title: "Here I Am!"
+				title: "Username: " + myUser
+			});
+			marker.setMap(map);
+		
+			// Open info window on click of marker
+			google.maps.event.addListener(marker, 'click', function() {
+				infowindow.setContent(marker.title);
+				infowindow.open(map, marker);
+			});
+		}
+		function addMarker(prop, i, icon) {
+			var username = prop[i].username;
+			markerLocation = new google.maps.LatLng(prop[i].lat, prop[i].lng);
+			marker = new google.maps.Marker({
+				position: markerLocation,
+				title: "Username: " + username
 			});
 			marker.setMap(map);
 		
@@ -58,37 +74,36 @@
 			});
 		}
 
+		var jsonInfo;
 		var xhr = new XMLHttpRequest();
 		var url = "https://jordan-marsh.herokuapp.com/rides";
 		var sendInfo = "username=t0u3gGPnp6&lat=" + myLat + "&lng=" + myLng;
 		xhr.open("POST", url, true);
 
-		//Send the proper header information along with the request
 		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-		http.onreadystatechange = function() {//Call a function when the state changes.
-		    if(http.readyState == 4 && http.status == 200) {
-		        alert(http.responseText);
+		xhr.onreadystatechange = function() {
+		    if(xhr.readyState == 4 && xhr.status == 200) {
+		    	var myProp;
+		        jsonInfo = JSON.parse(xhr.responseText);
+		        if ('passengers' in jsonInfo) {
+		        	myProp = jsonInfo['passengers'];
+		        	for (var i = 0; i < myProp.length; i++) {
+		        	addMarker(myProp, i, 'passengers.png');
+		        	}
+		        }
+		        else if ('drivers' in jsonInfo) {
+		        	myProp = jsonInfo['drivers'];
+		        	for (var i = 0; i < myProp.length; i++) {
+		        		addMarker(myProp, i, 'drivers.png');
+		        	}
+		        }
+		        
+		        alert(xhr.responseText);
 		    }
 		}
-		http.send(sendInfo);
+		xhr.send(sendInfo);
 
-		/*function gotLocation(position) {
-			myLat = position.coords.latitude;
-			myLng = position.coords.longitude;
-			output = document.getElementById("location");
-			output.innerHTML = "<h1>Latitude: " + myLat + "Longitude: " + myLng + "</h1>";
-		}
-		var request = new XMLHttpRequest();
-		var url = "https://jordan-marsh.herokuapp.com/rides";
-		request.open('GET', url, true);
-
-		request.onreadystatechange = function() {
-			if (request.readyState == 4 && request.status == 200) {
-
-			}
-		}
-		*/
 	</script>
 </head>
 
