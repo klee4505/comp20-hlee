@@ -1,0 +1,20 @@
+/* This is a stylesheet for index.html */
+
+h1 {
+	text-align: center;
+	background-color: #ffcc33;
+	font-family: Trebuchet MS;
+}
+
+div {
+	margin: auto;
+	text-align: center;
+	border-style: ridge;
+	border-width: 5px;
+	border-color: #664d00;
+}
+
+#log {
+	color: black;
+	background-color: #cc9900;
+}
