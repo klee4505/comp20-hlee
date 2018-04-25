@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Security</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <h1>Assignment 4: Security and Privacy Assessment</h1>
+    <h2>Introduction:</h2>
+    <p>This product identifies the issues in the notuber web server. The product uses web security platforms/tools such as Burp Suite, curl, etc. to perform security testing of web applications.</p>
+    <h2>Methodology:</h2>
+    <p>We used curl to send malicious data to the targeted domain/server whenever inputs or HTML requests were made. We can detect vulnerabilities if the code injection made with javascript is executed in the client side of the product. We also set up a proxy attack with Burp Suite that intercepts HTML request. With the interception tool, we can modify the data to test for vulnerabilities.</p>
+
+
+    <h2>Abstract of Findings:</h2>
+    <p>The basic web security flaws we found involved Cross Site Scripting (XSS), Proxy Attack/Hijacking, and noSQL Injections.  </p>
+    <p>Cross Site Scripting or XSS is a type of vulnerability that involves an attacker injecting programming language into the client's webpage via database server, HTML request, or even client side inputs.</p>
+    <p>Proxy Attacks is another type of web vulnerability that involves an attacker intercepting the client web requests to a server. The attacker modifies the request data into a malicious one and forwards it into the client-side webpage.</p>
+    <p>noSQL Injection is an web based attack where an attacker can execute malicious statements by injecting code that manipulates the database (payload). Through noSQL Injections, an attacker can gain access to the server's database.</p>
+
+    <h2>Issues Found:</h2>
+
+    <div class="issue">1) Cross Site Scripting (XSS)</div>
+    <p class="issue">Location: https://jordan-marsh.herokuapp.com/.</p>
+    <p class="issue">Severity: High; Cross Site Scripting has an enormously wide range of what can be injected. For example, an atter can inject malware that can inject a client's computer.</p>
+    <p class="issue">Prevention: Remove ability of data to be interpreted as js code by changing '<' to &amp;lt and '>' to &amp;gt.</p>
+    <p class="issue">Description: The 'attacker' took advantage of request data (username) using curl. They can manipulate the data with code, javascript, to manipulate the client's webpage. Example, alert message is sent to the client's webpage.</p>
+
+    <div><img src="xxs1.png" alt="Cross Site Scripting example 1"/></div>
+    <div><img src="xxs2.png" alt="Cross Site Scripting example 2"/></div>
+    <p></p>
+
+    <div class="issue">2) Proxy Hijacking</div>
+    <p class="issue">Location: https://jordan-marsh.herokuapp.com/vehicle.json?username=[username].</p>
+    <p class="issue">Severity: Low; Although proxy hijacking can be dangerous, the vulnerability in the notuber product has minimal risks. The worst case senario is that the result that is sent back to the user becomes an empty json.</p>
+    <p class="issue">Prevention: Make sure to validate the retrieved data to check for malicious attack attempts.</p>
+    <p class="issue">Description: The 'attacker' took advantage of proxy interception and changed the requested query string.</p>
+    <div><img src="proxyatt.png" alt="Proxy Hijacking"/></div>
+
+    <div class="issue">3) NoSQL Injection</div>
+    <p class="issue">Location: https://jordan-marsh.herokuapp.com/vehicle.json.</p>
+    <p class="issue">Severity: Low; The worst case for this issue (specifically for notuber), is that the server returns an empty json.</p>
+    <p class="issue">Prevention: Similarly to proxy hijacking, make sure to validate the retrieved data for attempts to manipulate the database server. Validation can involve getting rid of special characters.</p>
+    <p class="issue">Description: The 'attacker' can take advantage of query strings to become code that manipulates noSQL databases. In some cases, attackers can gain access to unauthorized documents; however, in this case, the attacker can only gain access to an empty json string. The code below never validated the request query string. This code can further its security by adding a line that rids of all special characters.</p>
+    <div><img src="nosql.png" alt="Nosql Injection"/></div>
+
+    <h2>Conclusion:</h2>
+    <p>Make sure that your product has no web vulnerabilities! You can buy the professional edition for burp suite to gain access to a web vulnerability scanner, advanced manual tools, etc. This will be helpful in recognizing vulnerabilities in your app.</p>
+
+    <h2>References:</h2>
+    <a href="https://portswigger.net/burp/help/suite_gettingstarted">Burp Suite Tutorial</a> 
+
+    
+</body>
+</html>
